@@ -1,0 +1,21 @@
+<h2>Welcome</h2>
+
+<h4>Create an account</h4>
+
+<%= form_for(@user) do |f| %>
+  <%= f.text_field :name, :placeholder => "Your name" %>
+  <%= f.text_field :email, :placeholder => "Your e-mail" %>
+  <%= f.password_field :password, :placeholder => "Password" %>
+  <%= f.password_field :password_confirmation, :placeholder => "Confirm your password" %>
+  <%= f.submit "Sign up" %>
+<% end %>
+
+<h4>Sign in</h4>
+
+<%= form_tag("/session", method: "post") do %>
+  <%= label_tag "Your e-mail:" %>
+  <%= text_field_tag :email %>
+  <%= label_tag "Your password" %>
+  <%= password_field_tag :password %>
+  <%= submit_tag("Log in!") %>
+<% end %>

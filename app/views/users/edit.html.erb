@@ -1,0 +1,5 @@
+<%= form_for(@user) do |f| %>
+  <%= f.text_field :name, :placeholder => @user.name %>
+  <%= f.text_field :email, :placeholder => @user.email %>
+  <%= f.submit "Update your info" %>
+<% end %>
