@@ -228,5 +228,3 @@
 
         fn.register("WebAudioAPI:send", WebAudioAPISendNode);
     })();
-
-})(timbre);
