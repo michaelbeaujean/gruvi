@@ -1,3 +1,7 @@
+This gon be some kinda sweet trippy browser-based music app.
+
+It gon be sweet.
+
 == README
 
 This README would normally document whatever steps are necessary to get the
