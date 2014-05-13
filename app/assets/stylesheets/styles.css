@@ -1,17 +1,46 @@
+body {
+  font-family: Avenir;
+  margin: 0;
+}
 
+#forms {
+  text-align: right;
+  color: black;
+  height: 90px;
+  width: auto;
+}
 
-#header {
+#sign-up {
+  padding: 10px;
+}
+
+#sign-in {
+  padding: 10px;
+}
+
+#first-header {
   background-image: url("/assets/music_wallpaper.jpg");
+  background-color: black;
   background-attachment: absolute;
-  background-size: 2000px auto;
+  background-size: 1050px;
   background-position: center;
   background-repeat: no-repeat;
   height: 300px;
   width: auto;
 }
 
-#header h1 {
+#logo {
   text-align: center;
   font-family: Avenir;
-  color: white;
+  color: grey;
+}
+
+#squares {
+  text-align: center;
+}
+
+.square {
+  padding: 5px;
+  border-radius: 50%;
+  border-width: 3px;
 }
