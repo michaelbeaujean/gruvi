@@ -2,20 +2,11 @@ window.AudioContext = window.webkitAudioContext;
 context = new AudioContext();
 var bufferLoader;
 var ABuffer, BBuffer, CSharpBuffer, DBuffer, EBuffer, FSharpBuffer, GSharpBuffer, HighABuffer;
+var RhythmSample = {};
 
-// function loadNote(url) {
-//   var request = new XMLHttpRequest();
-//   request.open('GET', url, true);
-//   request.responseType = 'arraybuffer';
+var tempo = 120; // BPM (beats per minute)
+var eighthNoteTime = (60 / tempo) / 2;
 
-//   request.onload = function() {
-//     context.decodeAudioData(request.response, function(buffer) {
-//     	noteBuffer = buffer;
-//     });
-//   };
-//   request.send();
-//   return noteBuffer;
-// };
 
 function BufferLoader(context, urlList, callback) {
   this.context = context;
@@ -65,7 +56,6 @@ BufferLoader.prototype.load = function() {
 };
 
 function finishedLoading(bufferList) {
-  // Create two sources and play them both together.
   ABuffer = context.createBufferSource();
   BBuffer = context.createBufferSource();
   CSharpBuffer = context.createBufferSource();
@@ -111,11 +101,35 @@ bufferLoader = new BufferLoader(
 
 bufferLoader.load();
 
+function playSound(buffer, time) {
+	var source = context.createBufferSource();
+	source.buffer = buffer;
+	source.connect(context.destination);
+	if (!source.start)
+	  source.start = source.noteOn;
+	source.start(time);
+};
 
-function playSound(buffer) {
-  var source = context.createBufferSource(); // creates a sound source
-  source.buffer = buffer;                    // tell the source which sound to play
-  source.connect(context.destination);       // connect the source to the context's destination (the speakers)
-  source.start(0);                           // play the source now
-                                             // note: on older systems, may have to use deprecated noteOn(time);
+
+RhythmSample.play = function() {
+
+  // We'll start playing the rhythm 100 milliseconds from "now"
+  var startTime = context.currentTime + 0.100;
+
+  // Play 2 bars of the following:
+  for (var bar = 0; bar < 2; bar++) {
+    var time = startTime + bar * 8 * eighthNoteTime;
+    // Play the bass (kick) drum on beats 1, 5
+    playSound(ABuffer.buffer, time);
+    playSound(ABuffer.buffer, time + 4 * eighthNoteTime);
+
+    // Play the snare drum on beats 3, 7
+    playSound(EBuffer.buffer, time + 2 * eighthNoteTime);
+    playSound(EBuffer.buffer, time + 6 * eighthNoteTime);
+
+    // Play the hi-hat every eighthh note.
+    for (var i = 0; i < 8; ++i) {
+      playSound(HighABuffer.buffer, time + i * eighthNoteTime);
+    }
+  }
 };
