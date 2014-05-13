@@ -3,18 +3,18 @@ var oscillator, gain;
 var now = context.currentTime;
 var oscillatorCounter = 0;
 
-function startOsc(frequency){ // Frequency is passed to this function from input button 
- 
+function startOsc(frequency){ // Frequency is passed to this function from input button
+
     // Create OscillatorNode
     oscillator = context.createOscillator(); // Create sound source
     oscillator.type = 0; // Sine wave
     oscillator.frequency.value = frequency; // Frequency in hertz (passed from input button)
     oscillator.noteOn(now); // Play oscillator instantly
 
-    // Create GainNode    
+    // Create GainNode
     gain = context.createGainNode(); // Create gain node
     gain.gain.value = .5; // Set gain to full volume
- 
+
     // Connect the Nodes
     oscillator.connect(gain); // Connect oscillator to gain
     gain.connect(context.destination); // Connect gain to output
