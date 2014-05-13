@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: music_app_production
-  username: music_app
+  username: <%= `echo $USER`.chomp %>
   password: <%= ENV['MUSIC_APP_DATABASE_PASSWORD'] %>
