@@ -16,4 +16,5 @@
 //= require webaudioapi
 //= require webaudioapimethods
 //= require main
+//= require jquerycolor
 //= require_tree .
