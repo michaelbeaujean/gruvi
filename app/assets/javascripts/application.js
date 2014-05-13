@@ -14,4 +14,6 @@
 //= require jquery_ujs
 //= require timbre
 //= require webaudioapi
+//= require webaudioapimethods
+//= require main
 //= require_tree .
