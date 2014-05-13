@@ -4,6 +4,10 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.0'
 
+ruby "2.1.0"
+# ruby "1.9.3"
+# ^ for Travis CI
+
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Use SCSS for stylesheets
