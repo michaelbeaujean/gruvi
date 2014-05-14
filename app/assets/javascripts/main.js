@@ -42,14 +42,14 @@ $(document).ready(function(){
 function playSimon() {
 	simonCounter++;
 
+	var startTime = 0;
+
 	var note = _.sample(bufferLoader.bufferList);
 	simonNotes.push(note);
 
-	var startTime = context.currentTime;
-
 	for (i=0; i<simonNotes.length; i++) {
 		playSound(simonNotes[i], startTime);
-		startTime += 0.300;
+		startTime += eighthNoteTime;
 	};
 };
 
