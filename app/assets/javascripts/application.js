@@ -12,9 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require timbre
-//= require webaudioapi
-//= require webaudioapimethods
-//= require main
+//= require underscore
 //= require jquerycolor
+//= require backbone
+//= require webaudioapimethods
+//= require backbones
+//= require main
 //= require_tree .

@@ -56,32 +56,14 @@ BufferLoader.prototype.load = function() {
 };
 
 function finishedLoading(bufferList) {
-  ABuffer = context.createBufferSource();
-  BBuffer = context.createBufferSource();
-  CSharpBuffer = context.createBufferSource();
-  DBuffer = context.createBufferSource();
-  EBuffer = context.createBufferSource();
-  FSharpBuffer = context.createBufferSource();
-  GSharpBuffer = context.createBufferSource();
-  HighABuffer = context.createBufferSource();
-
-  ABuffer.buffer = bufferList[0];
-  BBuffer.buffer = bufferList[1];
-  CSharpBuffer.buffer = bufferList[2];
-  DBuffer.buffer = bufferList[3];
-  EBuffer.buffer = bufferList[4];
-  FSharpBuffer.buffer = bufferList[5];
-  GSharpBuffer.buffer = bufferList[6];
-  HighABuffer.buffer = bufferList[7];
-
-  ABuffer.connect(context.destination);
-  BBuffer.connect(context.destination);
-  CSharpBuffer.connect(context.destination);
-  DBuffer.connect(context.destination);
-  EBuffer.connect(context.destination);
-  FSharpBuffer.connect(context.destination);
-  GSharpBuffer.connect(context.destination);
-  HighABuffer.connect(context.destination);
+  ABuffer = bufferList[0];
+  BBuffer = bufferList[1];
+  CSharpBuffer = bufferList[2];
+  DBuffer = bufferList[3];
+  EBuffer = bufferList[4];
+  FSharpBuffer = bufferList[5];
+  GSharpBuffer = bufferList[6];
+  HighABuffer = bufferList[7];
 };
 
 bufferLoader = new BufferLoader(
@@ -102,6 +84,13 @@ bufferLoader = new BufferLoader(
 bufferLoader.load();
 
 function playSound(buffer, time) {
+
+	var length = buffer.length;
+	var color = DICTIONARY[length];
+	var div = "#" + length;
+
+	blink(div, color);
+
 	var source = context.createBufferSource();
 	source.buffer = buffer;
 	source.connect(context.destination);
@@ -127,7 +116,7 @@ RhythmSample.play = function() {
     playSound(EBuffer.buffer, time + 2 * eighthNoteTime);
     playSound(EBuffer.buffer, time + 6 * eighthNoteTime);
 
-    // Play the hi-hat every eighthh note.
+    // Play the hi-hat every eighth note.
     for (var i = 0; i < 8; ++i) {
       playSound(HighABuffer.buffer, time + i * eighthNoteTime);
     }
