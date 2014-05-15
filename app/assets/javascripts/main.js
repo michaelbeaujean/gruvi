@@ -197,6 +197,8 @@ function endGame(){
 
 	$("#gameplay-box").append(sorry);
 
+	$("#player-score").append(playerScore);
+
 	// creates a quadruple-length pause before offering the user a
 	// chance to play again
 	setTimeout(function(){
