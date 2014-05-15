@@ -221,7 +221,7 @@ Pusher.log = function(message) {
   }
 };
 
-var pusher = new Pusher('72df76eb0f3ff7e19b92');
+var pusher = new Pusher(ENV['PUSHER_KEY']);
 var channel = pusher.subscribe('test_channel');
 channel.bind('my_event', function(data){
   alert(data.message);
