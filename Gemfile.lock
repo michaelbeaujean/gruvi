@@ -48,6 +48,9 @@ GEM
     diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.0.2)
+    figaro (0.7.0)
+      bundler (~> 1.0)
+      rails (>= 3, < 5)
     hike (1.2.3)
     httpclient (2.3.4.1)
     i18n (0.6.9)
@@ -180,6 +183,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   capybara
   coffee-rails (~> 4.0.0)
+  figaro
   jasmine
   jasmine-jquery-rails
   jbuilder (~> 2.0)

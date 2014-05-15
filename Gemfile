@@ -9,6 +9,7 @@ ruby "2.1.0"
 # ^ for Travis CI
 
 gem 'pusher'
+gem 'figaro'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
