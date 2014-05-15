@@ -1,0 +1,23 @@
+<div id="forms">
+  <div id="sign-up">
+    <strong id="sign">Sign up</strong>
+      <%= form_for(@user) do |f| %>
+      <%= f.text_field :name, :placeholder => "Name" %>
+      <%= f.text_field :email, :placeholder => "E-mail" %>
+      <%= f.password_field :password, :placeholder => "Password" %>
+      <%= f.password_field :password_confirmation, :placeholder => "Confirm your password" %>
+      <%= f.submit "Sign up" %>
+    <% end %>
+  </div>
+
+  <div id="sign-in">
+    <strong>Sign in</strong>
+      <%= form_tag("/session", method: "post") do %>
+        <%= label_tag "E-mail:" %>
+        <%= text_field_tag :email %>
+        <%= label_tag "Password" %>
+        <%= password_field_tag :password %>
+        <%= submit_tag("Log in!") %>
+      <% end %>
+  </div>
+</div>
