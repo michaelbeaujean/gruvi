@@ -147,7 +147,7 @@ function getPlayerInput(note){
 
 		if (correctResponse) {
 			var goodJob = $("<p>").text("Good job!");
-			playerScore++;
+			playerScore += simonNotes.length;
 			$("#player-score").html("");
 			$("#player-score").append(playerScore);
 
