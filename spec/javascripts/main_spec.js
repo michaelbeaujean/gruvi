@@ -16,6 +16,8 @@ describe("the gruvi app", function(){
     });
   });
 
+  // jasmine-jQuery test that has yet to work
+
   // describe("blink", function(){
   //   var firstDiv = $("#FFFF9C");
   //   blink(64849, "#FFFF9C");

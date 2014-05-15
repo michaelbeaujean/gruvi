@@ -44,6 +44,7 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'rspec'
   gem 'jasmine'
+  gem 'jasmine-jquery-rails'
 end
 
 # Use unicorn as the app server
