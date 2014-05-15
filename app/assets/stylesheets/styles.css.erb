@@ -5,6 +5,8 @@ body {
   color: white;
 }
 
+/*Sign Up Form */
+
 #forms {
   text-align: right;
   color: white;
@@ -12,17 +14,14 @@ body {
   width: auto;
 }
 
-#sign-up {
+#forms form {
   padding: 10px;
 }
 
-#sign-in {
-  padding: 10px;
-}
+/*Logo stuff*/
 
 #first-header {
   background-image: url(<%= asset_path 'music-visualization.jpg' %>);
-  /*background-color: black;*/
   background-attachment: absolute;
   background-size: 1050px;
   background-position: center;
@@ -33,12 +32,18 @@ body {
 
 #logo {
   text-align: center;
-  font-family: Avenir;
 }
+
+/*Game Scoreboard */
 
 #game-messages {
   display: inline;
   text-align: center;
+}
+
+#score {
+  text-align: left;
+  padding: 20px;
 }
 
 #start-game {
@@ -52,10 +57,11 @@ body {
 #gameplay-box {
   position: absolute;
   bottom: 250px;
-  /*text-align : center;*/
   width: 100%;
   margin: 0 auto;
 }
+
+/*Music Stuff*/
 
 #squares-wrapper {
   width: 90%;
@@ -77,10 +83,4 @@ body {
   border: 3px white solid;
   display: inline-block;
 }
-
-#score {
-  text-align: left;
-  padding: 20px;
-}
-
 
