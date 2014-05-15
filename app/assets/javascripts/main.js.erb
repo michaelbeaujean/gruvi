@@ -107,7 +107,7 @@ function playSound(buffer, startTime) {
 		url: '/push',
 		type: 'POST',
 		dataType: 'json',
-		data: {}		
+		data: {}
 	});
 };
 
@@ -215,7 +215,7 @@ function endGame(){
 	}, (eighthNote * 4000));
 };
 
-var pusher = new Pusher(<%= ENV['PUSHER_KEY'] %>);
+var pusher = new Pusher('<%= ENV['PUSHER_KEY'] %>');
 var channel = pusher.subscribe('test_channel');
 channel.bind('my_event', function(data){
   alert(data.message);
@@ -228,7 +228,7 @@ channel.bind('bills_event', function(data){
 // 	playSound(ABuffer, 0);}, (eighthNote * 2000));
 // };
 
-// function startMetronome(){ 
+// function startMetronome(){
 // 	metroGnome = setInterval(function(){
 // 		playSound(ABuffer, 0);}, (eightNote * 2000));
 // };
