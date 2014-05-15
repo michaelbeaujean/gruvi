@@ -4,6 +4,7 @@ var playerNotes = [];
 var playersTurn = false;
 var correctResponse = true;
 var simonDuration = simonCounter * eighthNote;
+var expertMode;
 var playerScore = 0;
 
 // The keys are the length of the individual note buffers; the values are the hex codes
@@ -20,6 +21,16 @@ var DICTIONARY = {
 };
 
 $(document).ready(function(){
+
+	$("#normal").on('click', function(){
+		expertMode = false;
+		startGame();
+	});
+	$("expert").on('click', function(){
+		expertMode = true;
+		startGame();
+	});
+
 	$("#player-score").append(playerScore);
 
 	var play = $("<p>").text("play");
@@ -27,42 +38,58 @@ $(document).ready(function(){
 	$("#gameplay-box").append(play);
 
 	$("#64849").on('click', function(){
-		playSound(ABuffer, 0);
+		playBuffer(ABuffer);
 	});
 	$("#47556").on('click', function(){
-		playSound(BBuffer, 0);
+		playBuffer(BBuffer);
 	});
 	$("#43744").on('click', function(){
-		playSound(CSharpBuffer, 0);
+		playBuffer(CSharpBuffer);
 	});
 	$("#43604").on('click', function(){
-		playSound(DBuffer, 0);
+		playBuffer(DBuffer);
 	});
 	$("#43649").on('click', function(){
-		playSound(EBuffer, 0);
+		playBuffer(EBuffer);
 	});
 	$("#43656").on('click', function(){
-		playSound(FSharpBuffer, 0);
+		playBuffer(FSharpBuffer);
 	});
 	$("#43686").on('click', function(){
-		playSound(GSharpBuffer, 0);
+		playBuffer(GSharpBuffer);
 	});
 	$("#43601").on('click', function(){
-		playSound(HighABuffer, 0);
+		playBuffer(HighABuffer);
 	});
 
-	$("#gameplay-box").on('click', function(){
+	$("#easy").on('click', function(){
+		startGame();
+	});
+
+	$("#hard").on('click', function(){
+		expertMode = true;
 		startGame();
 	});
 });
+
+// somewhat reducing repetition of code in above event listeners
+function playBuffer(buffer) {
+	playSound(buffer, 0, expertMode);
+};
 
 // makes the circles flash
 function blink(div, color) {
     $(div).stop().css("background-color", color).animate({ backgroundColor: "#FFFFFF"}, 1500);
 };
 
+function startGame(){
+	$("#easy").hide();
+	$("#hard").hide();
+	playSimon();
+};
+
 // plays a tone and makes the associated circle flash
-function playSound(buffer, startTime) {
+function playSound(buffer, startTime, mode) {
 	// accesses the buffer's length to use as a key for the dictionary, then gets the color
 	// value
 	var length = buffer.length;
@@ -74,10 +101,12 @@ function playSound(buffer, startTime) {
 	source.buffer = buffer;
 	source.connect(context.destination);
 
-	// actually plays the note and blinks the div
+	// actually plays the note and blinks the div, if in normal mode
 	setTimeout(function(){
 		source.noteOn(0);
-		blink(div, color)
+		if (!expertMode) {
+			blink(div, color);
+		};
 	}, (startTime * 1000));
 
 	// if it's the player's turn, adds the note to his/her array of responses
@@ -103,25 +132,19 @@ function playSimon() {
 
 	// plays the notes in the sequence, an eighth-note apart
 	for (i=0; i<simonNotes.length; i++) {
-		playSound(simonNotes[i], startTime);
+		playSound(simonNotes[i], startTime, expertMode);
 		startTime += eighthNote;
 	};
 
-	var nowYou = $("<p>").text("Now you!");
+	var nowYou = $("<p>").attr("id", "now-you").text("Now you!");
 
 	// an eighth-note after the computer sequence is finished playing, prompts the player
 	// to try to match the sequence
 	setTimeout(function(){
-		$("#gameplay-box").empty();
 		$("#gameplay-box").append(nowYou);
 		playersTurn = true;
 		getPlayerInput();
 	}, (simonDuration * 1000) + (eighthNote * 1000));
-};
-
-function startGame(){
-	$("#gameplay-box").empty();
-	playSimon();
 };
 
 // evaluates each note the player inputs to see if it matches the corresponding note in
@@ -161,7 +184,6 @@ function getPlayerInput(note){
 		}
 		else {
 			var sorry = $("<p>").text("Sorry!");
-			var playAgain = $("<p>").text("click to play again");
 
 			simonNotes = [];
 			simonCounter = 0;
@@ -176,7 +198,8 @@ function getPlayerInput(note){
 			// chance to play again
 			setTimeout(function(){
 				$("#gameplay-box").empty();
-				$("#gameplay-box").append(playAgain);
+				$("#gameplay-box").reveal(easy);
+				$("#gameplay-box").append(hard);
 			}, (eighthNote * 4000));
 		};
 	};
