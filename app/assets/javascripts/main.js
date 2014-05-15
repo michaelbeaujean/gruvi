@@ -1,9 +1,9 @@
 var simonNotes = [];
 var simonCounter = 0;
+var simonDuration = simonCounter * eighthNote;
 var playerNotes = [];
 var playersTurn = false;
 var correctResponse = true;
-var simonDuration = simonCounter * eighthNote;
 var expertMode;
 var playerScore = 0;
 
@@ -26,9 +26,15 @@ $(document).ready(function(){
 		expertMode = false;
 		startGame();
 	});
-	$("expert").on('click', function(){
-		expertMode = true;
-		startGame();
+	$("#expert").on('click', function(){
+		var scale = [ABuffer, BBuffer, CSharpBuffer, DBuffer, EBuffer, FSharpBuffer, GSharpBuffer, HighABuffer];
+		var duration = sequenceDuration(scale);
+
+		playSequence(scale, eighthNote);
+		setTimeout(function(){
+			expertMode = true;
+			startGame();
+		}, (duration * 1000) + (eighthNote * 2000));
 	});
 
 	$("#player-score").append(playerScore);
@@ -61,20 +67,11 @@ $(document).ready(function(){
 	$("#43601").on('click', function(){
 		playBuffer(HighABuffer);
 	});
-
-	$("#easy").on('click', function(){
-		startGame();
-	});
-
-	$("#hard").on('click', function(){
-		expertMode = true;
-		startGame();
-	});
 });
 
 // somewhat reducing repetition of code in above event listeners
 function playBuffer(buffer) {
-	playSound(buffer, 0, expertMode);
+	playSound(buffer, 0);
 };
 
 // makes the circles flash
@@ -83,13 +80,13 @@ function blink(div, color) {
 };
 
 function startGame(){
-	$("#easy").hide();
-	$("#hard").hide();
+	$("#normal").hide();
+	$("#expert").hide();
 	playSimon();
 };
 
 // plays a tone and makes the associated circle flash
-function playSound(buffer, startTime, mode) {
+function playSound(buffer, startTime) {
 	// accesses the buffer's length to use as a key for the dictionary, then gets the color
 	// value
 	var length = buffer.length;
@@ -102,6 +99,7 @@ function playSound(buffer, startTime, mode) {
 	source.connect(context.destination);
 
 	// actually plays the note and blinks the div, if in normal mode
+
 	setTimeout(function(){
 		source.noteOn(0);
 		if (!expertMode) {
@@ -116,25 +114,31 @@ function playSound(buffer, startTime, mode) {
 	};
 };
 
+function sequenceDuration(sequence) {
+	return sequence.length * eighthNote;
+};
+
+function playSequence(sequence, startTime) {
+	// plays the notes in the sequence, an eighth-note apart
+	for (i=0; i<sequence.length; i++) {
+		playSound(sequence[i], startTime);
+		startTime += eighthNote;
+	};
+};
+
 // adds a note to the computer-generated sequence, plays the sequence, then prompts the
 // player to repeat it
 function playSimon() {
 	$("#player-score").html("");
-  $("#player-score").append(playerScore);
+  	$("#player-score").append(playerScore);
 	simonCounter++;
-
-	// creates a slight pause before the round starts
-	var startTime = eighthNote;
 
 	// selects a random note of the scale and pushes it to the computer-generated sequence
 	var note = _.sample(bufferLoader.bufferList);
 	simonNotes.push(note);
 
-	// plays the notes in the sequence, an eighth-note apart
-	for (i=0; i<simonNotes.length; i++) {
-		playSound(simonNotes[i], startTime, expertMode);
-		startTime += eighthNote;
-	};
+	// creates a slight pause before the round starts
+	playSequence(simonNotes, eighthNote);
 
 	var nowYou = $("<p>").attr("id", "now-you").text("Now you!");
 
@@ -178,7 +182,6 @@ function getPlayerInput(note){
 			// creates a double-length pause before beginning the next round
 			setTimeout(function(){
 				$("#gameplay-box").append(goodJob);
-				playersTurn = false;
 				playSimon();
 			}, (eighthNote * 2000));
 		}
@@ -198,8 +201,8 @@ function getPlayerInput(note){
 			// chance to play again
 			setTimeout(function(){
 				$("#gameplay-box").empty();
-				$("#gameplay-box").reveal(easy);
-				$("#gameplay-box").append(hard);
+				$("#normal").show();
+				$("#expert").show();
 			}, (eighthNote * 4000));
 		};
 	};
