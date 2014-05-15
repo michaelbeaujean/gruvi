@@ -210,7 +210,7 @@ function startMetronome(){ setInterval(function(){
 	playSound(ABuffer, 0);}, (eighthNote * 2000));
 };
 
-metroGnome = startMetronome;
+var metroGnome = startMetronome;
 
 function stopMetronome(){
 	clearInterval(metroGnome);	
