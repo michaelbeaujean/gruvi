@@ -20,6 +20,8 @@ var DICTIONARY = {
 };
 
 $(document).ready(function(){
+	$("#player-score").append(playerScore);
+
 	var play = $("<p>").text("play");
 
 	$("#gameplay-box").append(play);
@@ -118,7 +120,6 @@ function playSimon() {
 
 function startGame(){
 	$("#gameplay-box").empty();
-	$("#player-score").append(playerScore);
 	playSimon();
 };
 
