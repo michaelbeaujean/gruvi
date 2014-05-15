@@ -4,11 +4,8 @@ var playerNotes = [];
 var playersTurn = false;
 var correctResponse = true;
 var simonDuration = simonCounter * eighthNote;
-<<<<<<< HEAD
 var expertMode;
-=======
 var playerScore = 0;
->>>>>>> f2a6b469b93d59e87918e5ca29068d323094aff1
 
 // The keys are the length of the individual note buffers; the values are the hex codes
 // for the colors their circles flash.  The Dictionary is ordered from low to high notes.
@@ -24,7 +21,6 @@ var DICTIONARY = {
 };
 
 $(document).ready(function(){
-<<<<<<< HEAD
 
 	$("#normal").on('click', function(){
 		expertMode = false;
@@ -34,14 +30,13 @@ $(document).ready(function(){
 		expertMode = true;
 		startGame();
 	});
-=======
+
 	$("#player-score").append(playerScore);
 
 	var play = $("<p>").text("play");
 
 	$("#gameplay-box").append(play);
 
->>>>>>> f2a6b469b93d59e87918e5ca29068d323094aff1
 	$("#64849").on('click', function(){
 		playBuffer(ABuffer);
 	});
