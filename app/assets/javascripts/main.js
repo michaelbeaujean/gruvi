@@ -4,7 +4,11 @@ var playerNotes = [];
 var playersTurn = false;
 var correctResponse = true;
 var simonDuration = simonCounter * eighthNote;
+<<<<<<< HEAD
 var expertMode;
+=======
+var playerScore = 0;
+>>>>>>> f2a6b469b93d59e87918e5ca29068d323094aff1
 
 // The keys are the length of the individual note buffers; the values are the hex codes
 // for the colors their circles flash.  The Dictionary is ordered from low to high notes.
@@ -20,6 +24,7 @@ var DICTIONARY = {
 };
 
 $(document).ready(function(){
+<<<<<<< HEAD
 
 	$("#normal").on('click', function(){
 		expertMode = false;
@@ -29,6 +34,14 @@ $(document).ready(function(){
 		expertMode = true;
 		startGame();
 	});
+=======
+	$("#player-score").append(playerScore);
+
+	var play = $("<p>").text("play");
+
+	$("#gameplay-box").append(play);
+
+>>>>>>> f2a6b469b93d59e87918e5ca29068d323094aff1
 	$("#64849").on('click', function(){
 		playBuffer(ABuffer);
 	});
@@ -111,7 +124,8 @@ function playSound(buffer, startTime, mode) {
 // adds a note to the computer-generated sequence, plays the sequence, then prompts the
 // player to repeat it
 function playSimon() {
-
+	$("#player-score").html("");
+  $("#player-score").append(playerScore);
 	simonCounter++;
 
 	// creates a slight pause before the round starts
@@ -154,20 +168,24 @@ function getPlayerInput(note){
 
 	// if the length of the sequence the player has inputted matches the length of the
 	// computer's sequence, evaluates whether to begin another round or end the game.
+	// correct response increments the playerScore, clears the score div and appends the new score.
 	if (responseLength === simonNotes.length) {
 		$("#gameplay-box").empty();
 		playerNotes = [];
 		playersTurn = false;
-	
+
 		if (correctResponse) {
 			var goodJob = $("<p>").text("Good job!");
+			playerScore += simonNotes.length;
+			$("#player-score").html("");
+			$("#player-score").append(playerScore);
 
 			// creates a double-length pause before beginning the next round
 			setTimeout(function(){
 				$("#gameplay-box").append(goodJob);
 				playersTurn = false;
 				playSimon();
-			}, (eighthNote * 2000));	
+			}, (eighthNote * 2000));
 		}
 		else {
 			var sorry = $("<p>").text("Sorry!");
@@ -175,6 +193,9 @@ function getPlayerInput(note){
 			simonNotes = [];
 			simonCounter = 0;
 			correctResponse = true;
+			playerScore = 0;
+
+			$("#player-score").html("");
 
 			$("#gameplay-box").append(sorry);
 
