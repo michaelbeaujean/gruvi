@@ -215,7 +215,9 @@ function endGame(){
 	}, (eighthNote * 4000));
 };
 
-var pusher = new Pusher('<%= ENV['PUSHER_KEY'] %>');
+
+var pusher = new Pusher("<%= ENV['PUSHER_KEY'] %>");
+>>>>>>> 74c546636be40b3e71a9cf817a0866e3507d43d9
 var channel = pusher.subscribe('test_channel');
 channel.bind('my_event', function(data){
   alert(data.message);
