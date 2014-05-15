@@ -12,7 +12,7 @@ var  DICTIONARY = {
 	43601: "#9CFFDC",
 };
 
-$(document).ready(function(){	
+$(document).ready(function(){
 	$("#64849").on('click', function(){
 		playSound(ABuffer, 0);
 	});

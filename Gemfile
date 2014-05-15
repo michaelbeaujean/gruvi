@@ -36,6 +36,17 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'rails_12factor', group: :production
 
+group :development, :test do
+  gem "rails-erd"
+  gem 'rspec-rails'
+  gem 'pry-rails'
+  gem 'capybara'
+  gem 'shoulda-matchers'
+  gem 'rspec'
+  gem 'jasmine'
+  gem 'jasmine-jquery-rails'
+end
+
 # Use unicorn as the app server
 # gem 'unicorn'
 
