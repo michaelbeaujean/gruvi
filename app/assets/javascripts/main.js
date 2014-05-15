@@ -126,7 +126,7 @@ function playSequence(sequence, startTime) {
 // player to repeat it
 function playSimon() {
 	$("#player-score").html("");
-  	$("#player-score").append(playerScore);
+  $("#player-score").append(playerScore);
 	simonCounter++;
 
 	// selects a random note of the scale and pushes it to the computer-generated sequence
@@ -135,12 +135,12 @@ function playSimon() {
 
 	// creates a slight pause before the round starts
 	playSequence(simonNotes, eighthNote);
-
-	var nowYou = $("<p>").attr("id", "now-you").text("Now you!");
+	var nowYou = $("<p>").text("Now you!");
 
 	// an eighth-note after the computer sequence is finished playing, prompts the player
 	// to try to match the sequence
 	setTimeout(function(){
+		$("#gameplay-box").html("");
 		$("#gameplay-box").append(nowYou);
 		playersTurn = true;
 		getPlayerInput();
