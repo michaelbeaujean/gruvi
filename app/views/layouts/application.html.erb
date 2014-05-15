@@ -7,14 +7,14 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <div class="visualizer">
+    <!-- TODO: use it or lose it -->
+  	<% if flash[:message] %>
+  	    <%= flash[:message] %>
+  	<% end %>
 
-  <!-- TODO: use it or lose it -->
-	<% if flash[:message] %>
-	    <%= flash[:message] %>
-	<% end %>
-
-  <%= yield %>
-
+    <%= yield %>
+  </div>
   <script src="http://js.pusher.com/2.2/pusher.min.js"></script>
 </body>
 </html>
