@@ -102,6 +102,13 @@ function playSound(buffer, startTime) {
 		playerNotes.push(buffer);
 		playersTurn(buffer);
 	};
+
+	$.ajax({
+		url: '/push',
+		type: 'POST',
+		dataType: 'json',
+		data: {}		
+	});
 };
 
 function sequenceDuration(sequence) {
@@ -216,10 +223,10 @@ Pusher.log = function(message) {
 
 var pusher = new Pusher('72df76eb0f3ff7e19b92');
 var channel = pusher.subscribe('test_channel');
-channel.bind('my_event', function(data) {
+channel.bind('my_event', function(data){
   alert(data.message);
 });
-channel.bind('bills_event', function(data) {
+channel.bind('bills_event', function(data){
 	playSound(ABuffer);
 });
 

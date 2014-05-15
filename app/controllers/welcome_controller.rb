@@ -10,5 +10,8 @@ class WelcomeController < ApplicationController
 		Pusher['test_channel'].trigger('my_event', {
 		  message: 'hello world'
 		})
+
+		render :json => {}
 	end
+
 end
