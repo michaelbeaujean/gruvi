@@ -33,7 +33,8 @@ $(document).ready(function(){
 
 	$("#player-score").append(playerScore);
 
-	var play = $("<p>").text("play");
+	// var play = $("<p>").text("play");
+	var play;
 
 	$("#gameplay-box").append(play);
 
@@ -83,8 +84,8 @@ function blink(div, color) {
 };
 
 function startGame(){
-	$("#easy").hide();
-	$("#hard").hide();
+	$("#normal").hide();
+	$("#expert").hide();
 	playSimon();
 };
 
@@ -198,8 +199,10 @@ function getPlayerInput(note){
 			// chance to play again
 			setTimeout(function(){
 				$("#gameplay-box").empty();
-				$("#gameplay-box").reveal(easy);
-				$("#gameplay-box").append(hard);
+				// $("#gameplay-box").reveal(easy);
+				// $("#gameplay-box").append(hard);
+				$("#normal").show();
+				$("#expert").show();
 			}, (eighthNote * 4000));
 		};
 	};
