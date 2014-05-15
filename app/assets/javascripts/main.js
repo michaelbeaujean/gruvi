@@ -23,12 +23,17 @@ var DICTIONARY = {
 $(document).ready(function(){
 
 	$("#normal").on('click', function(){
+		$("#normal").hide();
+		$("#expert").hide();
 		expertMode = false;
 		startGame();
 	});
 	$("#expert").on('click', function(){
 		var scale = [ABuffer, BBuffer, CSharpBuffer, DBuffer, EBuffer, FSharpBuffer, GSharpBuffer, HighABuffer];
 		var duration = sequenceDuration(scale);
+
+		$("#normal").hide();
+		$("#expert").hide();
 
 		playSequence(scale, eighthNote);
 		setTimeout(function(){
@@ -76,8 +81,6 @@ function blink(div, color) {
 };
 
 function startGame(){
-	$("#normal").hide();
-	$("#expert").hide();
 	playSimon();
 };
 
