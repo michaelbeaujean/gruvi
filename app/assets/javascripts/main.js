@@ -4,6 +4,7 @@ var playerNotes = [];
 var playersTurn = false;
 var correctResponse = true;
 var simonDuration = simonCounter * eighthNote;
+var playerScore = 0;
 
 // The keys are the length of the individual note buffers; the values are the hex codes
 // for the colors their circles flash.  The Dictionary is ordered from low to high notes.
@@ -117,6 +118,7 @@ function playSimon() {
 
 function startGame(){
 	$("#gameplay-box").empty();
+	$("#player-score").append(playerScore);
 	playSimon();
 };
 
@@ -136,6 +138,7 @@ function getPlayerInput(note){
 
 	// if the length of the sequence the player has inputted matches the length of the
 	// computer's sequence, evaluates whether to begin another round or end the game.
+	// correct response increments the playerScore, clears the score div and appends the new score.
 	if (responseLength === simonNotes.length) {
 		$("#gameplay-box").empty();
 		playerNotes = [];
@@ -143,6 +146,9 @@ function getPlayerInput(note){
 
 		if (correctResponse) {
 			var goodJob = $("<p>").text("Good job!");
+			playerScore++;
+			$("#player-score").html("");
+			$("#player-score").append(playerScore);
 
 			// creates a double-length pause before beginning the next round
 			setTimeout(function(){
@@ -158,6 +164,9 @@ function getPlayerInput(note){
 			simonNotes = [];
 			simonCounter = 0;
 			correctResponse = true;
+			playerScore = 0;
+
+			$("#player-score").html("");
 
 			$("#gameplay-box").append(sorry);
 
