@@ -29,6 +29,7 @@ $(document).ready(function(){
 		startGame();
 	});
 	$("#expert").on('click', function(){
+		expertMode = false;
 		var scale = [ABuffer, BBuffer, CSharpBuffer, DBuffer, EBuffer, FSharpBuffer, GSharpBuffer, HighABuffer];
 		var duration = sequenceDuration(scale);
 
@@ -129,7 +130,7 @@ function playSequence(sequence, startTime) {
 // player to repeat it
 function playSimon() {
 	$("#player-score").html("");
-  $("#player-score").append(playerScore);
+	$("#player-score").append(playerScore);
 	simonCounter++;
 
 	// selects a random note of the scale and pushes it to the computer-generated sequence
