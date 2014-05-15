@@ -90,7 +90,8 @@ function playSound(buffer, startTime) {
 // adds a note to the computer-generated sequence, plays the sequence, then prompts the
 // player to repeat it
 function playSimon() {
-
+	$("#player-score").html("");
+  $("#player-score").append(playerScore);
 	simonCounter++;
 
 	// creates a slight pause before the round starts
