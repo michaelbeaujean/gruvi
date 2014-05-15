@@ -5,7 +5,7 @@ class WelcomeController < ApplicationController
   end
 
 	def pusher
-		Pusher.url = "http://#{ENV['PUSHER_KEY']}:#{ENV['PUSHER_SECRET']}@api.pusherapp.com/apps/{#{ENV['PUSHER_APP_ID']}"
+		Pusher.url = "http://#{ENV['PUSHER_KEY']}:#{ENV['PUSHER_SECRET']}@api.pusherapp.com/apps/#{ENV['PUSHER_APP_ID']}"
 
 		Pusher['test_channel'].trigger('my_event', {
 		  message: 'hello world'
