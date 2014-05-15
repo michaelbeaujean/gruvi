@@ -207,3 +207,30 @@ function endGame(){
 		$("#expert").show();
 	}, (eighthNote * 4000));
 };
+
+Pusher.log = function(message) {
+  if (window.console && window.console.log) {
+    window.console.log(message);
+  }
+};
+
+var pusher = new Pusher('72df76eb0f3ff7e19b92');
+var channel = pusher.subscribe('test_channel');
+channel.bind('my_event', function(data) {
+  alert(data.message);
+});
+
+// function startMetronome(){ setInterval(function(){
+// 	playSound(ABuffer, 0);}, (eighthNote * 2000));
+// };
+
+// function startMetronome(){ 
+// 	metroGnome = setInterval(function(){
+// 		playSound(ABuffer, 0);}, (eightNote * 2000));
+// };
+
+// var metroGnome = startMetronome;
+
+// function stopMetronome(){
+// 	clearInterval(metroGnome);
+// }

@@ -8,6 +8,8 @@ ruby "2.1.0"
 # ruby "1.9.3"
 # ^ for Travis CI
 
+gem 'pusher'
+
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Use SCSS for stylesheets
