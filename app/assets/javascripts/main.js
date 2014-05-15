@@ -219,6 +219,9 @@ var channel = pusher.subscribe('test_channel');
 channel.bind('my_event', function(data) {
   alert(data.message);
 });
+channel.bind('bills_event', function(data) {
+	playSound(ABuffer);
+});
 
 // function startMetronome(){ setInterval(function(){
 // 	playSound(ABuffer, 0);}, (eighthNote * 2000));
