@@ -33,11 +33,6 @@ $(document).ready(function(){
 
 	$("#player-score").append(playerScore);
 
-	// var play = $("<p>").text("play");
-	var play;
-
-	$("#gameplay-box").append(play);
-
 	$("#64849").on('click', function(){
 		playBuffer(ABuffer);
 	});
