@@ -205,3 +205,13 @@ function endGame(){
 		$("#expert").show();
 	}, (eighthNote * 4000));
 };
+
+function startMetronome(){ setInterval(function(){
+	playSound(ABuffer, 0);}, (eighthNote * 2000));
+};
+
+metroGnome = startMetronome;
+
+function stopMetronome(){
+	clearInterval(metroGnome);	
+}
