@@ -78,7 +78,7 @@ function playBuffer(buffer) {
 
 // makes the circles flash
 function blink(div, color) {
-    $(div).stop().css("background-color", color).animate({ backgroundColor: "#000000"}, 1500);
+    $(div).stop().css("background-color", color).animate({ backgroundColor: "rgba(0, 0, 0, 0.5)"}, 1500);
 };
 
 function startGame(){
