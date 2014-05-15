@@ -4,9 +4,11 @@ var bufferLoader;
 var ABuffer, BBuffer, CSharpBuffer, DBuffer, EBuffer, FSharpBuffer, GSharpBuffer, HighABuffer;
 var RhythmSample = {};
 
-// var now = context.currentTime();
 var tempo = 120; // BPM (beats per minute)
-var eighthNoteTime = (60 / tempo) / 2;
+// is measured in seconds, because that's what the WebAudioAPI time functions take as input.
+// in this code, is usually multiplied by a factor of thousands to convert it into
+// milliseconds, which is what JavaScript's native functions (i.e., setTimeout) take.
+var eighthNote = (60 / tempo) / 2;
 
 function BufferLoader(context, urlList, callback) {
   this.context = context;
@@ -17,7 +19,6 @@ function BufferLoader(context, urlList, callback) {
 }
 
 BufferLoader.prototype.loadBuffer = function(url, index) {
-  // Load buffer asynchronously
   var request = new XMLHttpRequest();
   request.open("GET", url, true);
   request.responseType = "arraybuffer";
@@ -25,7 +26,6 @@ BufferLoader.prototype.loadBuffer = function(url, index) {
   var loader = this;
 
   request.onload = function() {
-    // Asynchronously decode the audio file data in request.response
     loader.context.decodeAudioData(
       request.response,
       function(buffer) {
@@ -79,25 +79,9 @@ bufferLoader = new BufferLoader(
     '<%= asset_path("A4-440.wav") %>'
   ],
   finishedLoading
-  );
+);
 
 bufferLoader.load();
-
-function playSound(buffer, startTime) {
-  var length = buffer.length;
-  var color = DICTIONARY[length];
-  var div = "#" + length;
-
-  var source = context.createBufferSource();
-  source.buffer = buffer;
-  source.connect(context.destination);
-
-  setTimeout(function(){
-    source.noteOn(0);
-    blink(div, color)
-  }, (startTime * 1000));
-};
-
 
 RhythmSample.play = function() {
 
@@ -106,18 +90,18 @@ RhythmSample.play = function() {
 
   // Play 2 bars of the following:
   for (var bar = 0; bar < 2; bar++) {
-    var time = startTime + bar * 8 * eighthNoteTime;
+    var time = startTime + bar * 8 * eighthNote;
     // Play the bass (kick) drum on beats 1, 5
     playSound(ABuffer.buffer, time);
-    playSound(ABuffer.buffer, time + 4 * eighthNoteTime);
+    playSound(ABuffer.buffer, time + 4 * eighthNote);
 
     // Play the snare drum on beats 3, 7
-    playSound(EBuffer.buffer, time + 2 * eighthNoteTime);
-    playSound(EBuffer.buffer, time + 6 * eighthNoteTime);
+    playSound(EBuffer.buffer, time + 2 * eighthNote);
+    playSound(EBuffer.buffer, time + 6 * eighthNote);
 
     // Play the hi-hat every eighth note.
     for (var i = 0; i < 8; ++i) {
-      playSound(HighABuffer.buffer, time + i * eighthNoteTime);
+      playSound(HighABuffer.buffer, time + i * eighthNote);
     }
   }
 };
