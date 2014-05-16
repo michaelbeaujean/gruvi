@@ -7,12 +7,10 @@ class WelcomeController < ApplicationController
 	def pusher
 		Pusher.url = "http://#{ENV['PUSHER_KEY']}:#{ENV['PUSHER_SECRET']}@api.pusherapp.com/apps/#{ENV['PUSHER_APP_ID']}"
 
-		Pusher['test_channel'].trigger('my_event', {
-		  message: 'hello world'
-		})
 
-		Pusher['test_channel'].trigger('bills_event', {
-
+		Pusher.trigger('test_channel', 'bills_event', {
+			"note" => params[:note],
+			"startTime" => params[:startTime]
 		})
 
 		render :json => {}
