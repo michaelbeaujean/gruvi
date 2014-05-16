@@ -5,16 +5,18 @@ var isPlayersTurn = false;
 var correctResponse = true;
 var expertMode;
 var playerScore = 0;
+var scale = ["A", "B", "CSharp", "D", "E", "FSharp", "GSharp", "HighA"];
 
 var pusher = new Pusher("<%= ENV['PUSHER_KEY'] %>");
 var channel = pusher.subscribe('test_channel');
+
 channel.bind('bills_event', function(data){
-	playSound(ABuffer);
+	playSound(data.note, data.startTime);
 });
 
 // The keys are the length of the individual note buffers; the values are the hex codes
-// for the colors their circles flash.  The Dictionary is ordered from low to high notes.
-var DICTIONARY = {
+// for the colors their circles flash.  The hash is ordered from low to high notes.
+var length_color_hash = {
 	64849: "#FFFF9C",
 	47556: "#9CD2FF",
 	43744: "#A6FF9C",
@@ -33,10 +35,11 @@ $(document).ready(function(){
 		expertMode = false;
 		playSimon();
 	});
+
 	$("#expert").on('click', function(){
-		expertMode = false;
-		var scale = [ABuffer, BBuffer, CSharpBuffer, DBuffer, EBuffer, FSharpBuffer, GSharpBuffer, HighABuffer];
 		var duration = sequenceDuration(scale);
+
+		expertMode = false;
 
 		$("#normal").hide();
 		$("#expert").hide();
@@ -51,42 +54,66 @@ $(document).ready(function(){
 	$("#player-score").append(playerScore);
 
 	$("#64849").on('click', function(){
-		playSound(ABuffer, 0);
+		sendToPusher("A", 0);
 	});
 	$("#47556").on('click', function(){
-		playSound(BBuffer, 0);
+		sendToPusher("B", 0);
 	});
 	$("#43744").on('click', function(){
-		playSound(CSharpBuffer, 0);
+		sendToPusher("CSharp", 0);
 	});
 	$("#43604").on('click', function(){
-		playSound(DBuffer, 0);
+		sendToPusher("D", 0);
 	});
 	$("#43649").on('click', function(){
-		playSound(EBuffer, 0);
+		sendToPusher("E", 0);
 	});
 	$("#43656").on('click', function(){
-		playSound(FSharpBuffer, 0);
+		sendToPusher("FSharp", 0);
 	});
 	$("#43686").on('click', function(){
-		playSound(GSharpBuffer, 0);
+		sendToPusher("GSharp", 0);
 	});
 	$("#43601").on('click', function(){
-		playSound(HighABuffer, 0);
+		sendToPusher("HighA", 0);
 	});
 });
+
+window.onload = function(){
+};
 
 // makes the circles flash
 function blink(div, color) {
     $(div).stop().css("background-color", color).animate({ backgroundColor: "rgba(0, 0, 0, 0.5)"}, 1500);
 };
 
+function sendToPusher(note, startTime) {
+	$.ajax({
+		url: '/push',
+		type: 'POST',
+		dataType: 'json',
+		data: { "note": note, "startTime": startTime }		
+	});
+};
+
 // plays a tone and makes the associated circle flash
-function playSound(buffer, startTime) {
+function playSound(note, startTime) {
+	note_buffer_hash = {
+		"A": ABuffer,
+		"B": BBuffer,
+		"CSharp": CSharpBuffer,
+		"D": DBuffer,
+		"E": EBuffer,
+		"FSharp": FSharpBuffer,
+		"GSharp": GSharpBuffer,
+		"HighA": HighABuffer
+	};
+
 	// accesses the buffer's length to use as a key for the dictionary, then gets the color
 	// value
+	var buffer = note_buffer_hash[note]
 	var length = buffer.length;
-	var color = DICTIONARY[length];
+	var color = length_color_hash[length];
 	var div = "#" + length;
 
 	// WebAudioAPI boilerplate I copied from the docs
@@ -104,16 +131,9 @@ function playSound(buffer, startTime) {
 
 	// if it's the player's turn, adds the note to his/her array of responses
 	if (isPlayersTurn) {
-		playerNotes.push(buffer);
-		playersTurn(buffer);
+		playerNotes.push(note);
+		playersTurn(note);
 	};
-
-	$.ajax({
-		url: '/push',
-		type: 'POST',
-		dataType: 'json',
-		data: {}		
-	});
 };
 
 function sequenceDuration(sequence) {
@@ -123,7 +143,7 @@ function sequenceDuration(sequence) {
 function playSequence(sequence, startTime) {
 	// plays the notes in the sequence, an eighth-note apart
 	for (i=0; i<sequence.length; i++) {
-		playSound(sequence[i], startTime);
+		sendToPusher(sequence[i], startTime);
 		startTime += eighthNote;
 	};
 };
@@ -136,7 +156,7 @@ function playSimon() {
 	simonCounter++;
 
 	// selects a random note of the scale and pushes it to the computer-generated sequence
-	var note = _.sample(bufferLoader.bufferList);
+	var note = _.sample(scale);
 	simonNotes.push(note);
 
 	// creates a slight pause before the round starts
@@ -219,18 +239,3 @@ function endGame(){
 		$("#expert").show();
 	}, (eighthNote * 4000));
 };
-
-// function startMetronome(){ setInterval(function(){
-// 	playSound(ABuffer, 0);}, (eighthNote * 2000));
-// };
-
-// function startMetronome(){ 
-// 	metroGnome = setInterval(function(){
-// 		playSound(ABuffer, 0);}, (eightNote * 2000));
-// };
-
-// var metroGnome = startMetronome;
-
-// function stopMetronome(){
-// 	clearInterval(metroGnome);
-// }
