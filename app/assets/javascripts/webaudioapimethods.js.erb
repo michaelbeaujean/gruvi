@@ -82,26 +82,3 @@ bufferLoader = new BufferLoader(
 );
 
 bufferLoader.load();
-
-RhythmSample.play = function() {
-
-  // We'll start playing the rhythm 100 milliseconds from "now"
-  var startTime = context.currentTime + 0.100;
-
-  // Play 2 bars of the following:
-  for (var bar = 0; bar < 2; bar++) {
-    var time = startTime + bar * 8 * eighthNote;
-    // Play the bass (kick) drum on beats 1, 5
-    playSound(ABuffer.buffer, time);
-    playSound(ABuffer.buffer, time + 4 * eighthNote);
-
-    // Play the snare drum on beats 3, 7
-    playSound(EBuffer.buffer, time + 2 * eighthNote);
-    playSound(EBuffer.buffer, time + 6 * eighthNote);
-
-    // Play the hi-hat every eighth note.
-    for (var i = 0; i < 8; ++i) {
-      playSound(HighABuffer.buffer, time + i * eighthNote);
-    }
-  }
-};
