@@ -215,12 +215,8 @@ function endGame(){
 	}, (eighthNote * 4000));
 };
 
-
 var pusher = new Pusher("<%= ENV['PUSHER_KEY'] %>");
 var channel = pusher.subscribe('test_channel');
-channel.bind('my_event', function(data){
-  alert(data.message);
-});
 channel.bind('bills_event', function(data){
 	playSound(ABuffer);
 });
