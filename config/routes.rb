@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'welcome#index'
 
+  post '/push' => "welcome#pusher"
+  
   resources :users
 
   get '/session/new' => "session#new"

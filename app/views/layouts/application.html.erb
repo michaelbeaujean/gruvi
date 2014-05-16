@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>MusicApp</title>
+  <title>Gruvi</title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
+  <script src="http://js.pusher.com/2.2/pusher.min.js"></script>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
-  <link href='http://fonts.googleapis.com/css?family=Butcherman' rel='stylesheet' type='text/css'>
 </head>
 <body>
+  <div class="visualizer">
+    <!-- TODO: use it or lose it -->
+  	<% if flash[:message] %>
+  	    <%= flash[:message] %>
+  	<% end %>
 
-	<% if flash[:message] %>
-	    <%= flash[:message] %>
-	<% end %>
-
-<%= yield %>
-
+    <%= yield %>
+  </div>
 </body>
 </html>
