@@ -228,6 +228,10 @@ function endGame(){
 
 	$("#player-score").append(playerScore);
 
+	if (expertMode) {
+		expertMode = false;
+	};
+
 	// creates a quadruple-length pause before offering the user a
 	// chance to play again
 	setTimeout(function(){
