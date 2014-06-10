@@ -16,6 +16,6 @@ Jasmine
 Web Audio API
 Pusher
 
-GRUVI is supported by recent versions of Chrome, Firefox and Safari.  It is not compatible with IE.  It is partially functional on iOS and the versions of Android we've tested; full compatibility with these platforms is a goal.
+GRUVI is supported by recent versions of Chrome and Safari.  It is not compatible with IE.  It is partially functional on Firefox, iOS and the versions of Android we've tested; full compatibility with these platforms is a goal.
 
 Feel free to contact us with any feedback!
