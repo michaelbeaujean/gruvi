@@ -10,10 +10,6 @@ var scale = ["A", "B", "CSharp", "D", "E", "FSharp", "GSharp", "HighA"];
 var pusher = new Pusher("<%= ENV['PUSHER_KEY'] %>");
 var channel = pusher.subscribe('test_channel');
 
-channel.bind('bills_event', function(data){
-	playSound(data.note, data.startTime);
-});
-
 // The keys are the length of the individual note buffers; the values are the hex codes
 // for the colors their circles flash.  The hash is ordered from low to high notes.
 var length_color_hash = {
@@ -92,6 +88,11 @@ function sendToPusher(note, startTime) {
 		data: { "note": note, "startTime": startTime }
 	});
 };
+
+// when an event is sent back from Pusher, it triggers the appropriate note
+channel.bind('bills_event', function(data){
+	playSound(data.note, data.startTime);
+});
 
 // plays a tone and makes the associated circle flash
 function playSound(note, startTime) {
