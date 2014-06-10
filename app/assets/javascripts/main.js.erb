@@ -79,11 +79,8 @@ $(document).ready(function(){
 	});
 });
 
-window.onload = function(){
-};
-
 // makes the circles flash
-function blink(div, color) {
+ function blink(div, color) {
     $(div).stop().css("background-color", color).animate({ backgroundColor: "rgba(0, 0, 0, 0.5)"}, 1500);
 };
 
