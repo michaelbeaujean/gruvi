@@ -1,32 +1,21 @@
-This gon be some kinda sweet trippy browser-based music app.
+GRUVI is a browser-based, front end-focused memory game and ear training app.  It was built to be extensible and may become any number of other things in future versions; its current iteration is merely an MVP and proof of concept.  Nonetheless, we think it's fun, unique and addicting, and we hope you do too.
 
-It gon be sweet.
+You can try it out at http://gruvi.herokuapp.com
 
-== README
+Built with:
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ruby 2.1
+Rails 4.1
+PostgreSQL 9.3.3
+Javascript
+JQuery
+Git
+RSpec
+Capybara
+Jasmine
+Web Audio API
+Pusher
 
-Things you may want to cover:
+GRUVI is supported by recent versions of Chrome, Firefox and Safari.  It is not compatible with IE.  It is partially functional on iOS and the versions of Android we've tested; full compatibility with these platforms is a goal.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Feel free to contact us with any feedback!
