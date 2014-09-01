@@ -10,6 +10,10 @@ var scale = ["A", "B", "CSharp", "D", "E", "FSharp", "GSharp", "HighA"];
 var pusher = new Pusher("<%= ENV['PUSHER_KEY'] %>");
 var channel = pusher.subscribe('test_channel');
 
+channel.bind('bills_event', function(data){
+	playSound(data.note, data.startTime);
+});
+
 // The keys are the length of the individual note buffers; the values are the hex codes
 // for the colors their circles flash.  The hash is ordered from low to high notes.
 var length_color_hash = {
@@ -75,8 +79,11 @@ $(document).ready(function(){
 	});
 });
 
+window.onload = function(){
+};
+
 // makes the circles flash
- function blink(div, color) {
+function blink(div, color) {
     $(div).stop().css("background-color", color).animate({ backgroundColor: "rgba(0, 0, 0, 0.5)"}, 1500);
 };
 
@@ -88,11 +95,6 @@ function sendToPusher(note, startTime) {
 		data: { "note": note, "startTime": startTime }
 	});
 };
-
-// when an event is sent back from Pusher, it triggers the appropriate note
-channel.bind('bills_event', function(data){
-	playSound(data.note, data.startTime);
-});
 
 // plays a tone and makes the associated circle flash
 function playSound(note, startTime) {
@@ -118,6 +120,7 @@ function playSound(note, startTime) {
 	var source = context.createBufferSource();
 	source.buffer = buffer;
 	source.connect(context.destination);
+	source.start(0);
 
 	// actually plays the note and blinks the div, if in normal mode
 	setTimeout(function(){
@@ -228,10 +231,6 @@ function endGame(){
 	$("#gameplay-box").append(sorry);
 
 	$("#player-score").append(playerScore);
-
-	if (expertMode) {
-		expertMode = false;
-	};
 
 	// creates a quadruple-length pause before offering the user a
 	// chance to play again
