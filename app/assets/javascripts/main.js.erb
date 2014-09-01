@@ -124,7 +124,8 @@ function playSound(note, startTime) {
 
 	// actually plays the note and blinks the div, if in normal mode
 	setTimeout(function(){
-		source.noteOn(0);
+		// source.noteOn(0) was preventing the buttons from blinking after a while.
+		// source.noteOn(0);
 		if (!expertMode) {
 			blink(div, color);
 		};
